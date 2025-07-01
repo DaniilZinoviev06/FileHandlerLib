@@ -6,10 +6,14 @@
 
 class FileHandler {
 public:
-    FileHandler(const FileHandler&) = delete; // защита от копирования объекта, иначе может
-    FileHandler& operator=(const FileHandler&) = delete; // быть непредсказуемое поведение
+    FileHandler(const FileHandler&) = delete;
+    FileHandler& operator=(const FileHandler&) = delete;
+    FileHandler& operator=(FileHandler&& move_file);
 
     FileHandler(const std::string &file_name);
+
+    FileHandler(FileHandler&& move_file);
+
     ~FileHandler();
 
     std::string readLine();
@@ -19,6 +23,7 @@ public:
 
 private:
     std::fstream file;
+    std::string file_name;
 };
 
 

@@ -11,6 +11,19 @@ FileHandler::FileHandler(const std::string &file_name)
     file.seekg(0, std::ios::beg);
 }
 
+
+FileHandler::FileHandler(FileHandler&& move_file)
+    : file(std::move(move_file.file)), file_name(std::move(move_file.file_name)) {
+    std::cout << "Файл перемещен" << std::endl;
+};
+
+FileHandler& FileHandler::operator=(FileHandler&& move_file) {
+    file = std::move(move_file.file);
+    file_name = std::move(move_file.file_name);
+
+    return *this;
+}
+
 FileHandler::~FileHandler() {
     if(file.is_open()) {
         file.close();

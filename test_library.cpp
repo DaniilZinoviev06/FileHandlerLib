@@ -8,6 +8,10 @@ int main(){
 
         //FileHandler fh_2 = fh; // будет ошибка, только move
 
+        FileHandler fh2 = std::move(fh);
+
+        fh2.getWriteLine();
+
         // Запись
         fh.writeLine("1-я строчка");
         fh.writeLine("2-я строчка");
