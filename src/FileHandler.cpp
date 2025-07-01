@@ -1,11 +1,19 @@
 #include "../include/FileHandler.h"
 
+std::unordered_set<std::string> FileHandler::open_files;
+
 FileHandler::FileHandler(const std::string &file_name)
     : file(file_name, std::ios::in | std::ios::out | std::ios::app) {
+
+    if (open_files.count(file_name)) {
+        throw std::runtime_error("Ошибка - " + file_name + " открыт");
+    }
 
     if(!file.is_open()) {
         throw std::runtime_error("Ошибка - файл не открыт");
     }
+
+    open_files.insert(file_name);
 
     std::cout << "Файл открыт" << std::endl;
     file.seekg(0, std::ios::beg);
@@ -14,6 +22,9 @@ FileHandler::FileHandler(const std::string &file_name)
 
 FileHandler::FileHandler(FileHandler&& move_file)
     : file(std::move(move_file.file)), file_name(std::move(move_file.file_name)) {
+
+    open_files.erase(move_file.file_name);
+    open_files.insert(file_name);
     std::cout << "Файл перемещен" << std::endl;
 };
 
@@ -27,6 +38,7 @@ FileHandler& FileHandler::operator=(FileHandler&& move_file) {
 FileHandler::~FileHandler() {
     if(file.is_open()) {
         file.close();
+        open_files.erase(file_name);
         std::cout << "Файл закрыт" << std::endl;
     }
 }

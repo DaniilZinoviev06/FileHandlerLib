@@ -3,6 +3,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <string>
+#include <unordered_set>
 
 class FileHandler {
 public:
@@ -24,6 +25,7 @@ public:
 private:
     std::fstream file;
     std::string file_name;
+    static std::unordered_set<std::string> open_files;
 };
 
 

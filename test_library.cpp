@@ -10,24 +10,26 @@ int main(){
 
         FileHandler fh2 = std::move(fh);
 
+        //FileHandler fh3("example.txt");
+
         fh2.getWriteLine();
 
         // Запись
-        fh.writeLine("1-я строчка");
-        fh.writeLine("2-я строчка");
-        fh.writeLine("3-я строчка");
+        fh2.writeLine("1-я строчка");
+        fh2.writeLine("2-я строчка");
+        fh2.writeLine("3-я строчка");
 
 
         // Чтение
-        std::cout << fh.readLine() << std::endl;
-        std::cout << fh.readLine() << std::endl;
-        std::cout << fh.readLine() << std::endl;
+        std::cout << fh2.readLine() << std::endl;
+        std::cout << fh2.readLine() << std::endl;
+        std::cout << fh2.readLine() << std::endl;
 
 
         // запись с консоли
-        fh.getWriteLine();
+        fh2.getWriteLine();
 
-        fh.changeReadPos();
+        fh2.changeReadPos();
 
         std::cout << "\nДанные из файла" << std::endl;
         try {
